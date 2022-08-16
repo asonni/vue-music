@@ -1,13 +1,13 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDJzr5h7lKzDCZqCaNkU_qQuDteHHHrrFc',
-  authDomain: 'vue3-music.firebaseapp.com',
-  projectId: 'vue3-music',
-  storageBucket: 'vue3-music.appspot.com',
-  appId: '1:72609733188:web:5f33454c734489ade5fa11'
+  apiKey: "AIzaSyDvF17Y5ApfuVBSm_bemsZYoPrNVUT1r2s",
+  authDomain: "music-temp-2a2ab.firebaseapp.com",
+  projectId: "music-temp-2a2ab",
+  storageBucket: "music-temp-2a2ab.appspot.com",
+  appId: "1:513389509498:web:f976453109bb87de1034c3",
 };
 
 // Initialize Firebase
@@ -16,6 +16,6 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const usersCollection = db.collection('users');
+const usersCollection = db.collection("users");
 
 export { auth, db, usersCollection };
