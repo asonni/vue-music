@@ -1,13 +1,14 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDvF17Y5ApfuVBSm_bemsZYoPrNVUT1r2s',
-  authDomain: 'music-temp-2a2ab.firebaseapp.com',
-  projectId: 'music-temp-2a2ab',
-  storageBucket: 'music-temp-2a2ab.appspot.com',
-  appId: '1:513389509498:web:f976453109bb87de1034c3'
+  apiKey: 'AIzaSyDJzr5h7lKzDCZqCaNkU_qQuDteHHHrrFc',
+  authDomain: 'vue3-music.firebaseapp.com',
+  projectId: 'vue3-music',
+  storageBucket: 'vue3-music.appspot.com',
+  messagingSenderId: '72609733188',
+  appId: '1:72609733188:web:5f33454c734489ade5fa11'
 };
 
 // Initialize Firebase
