@@ -1,9 +1,17 @@
 <template>
   <!-- Registration Form -->
-  <div v-if="reg_show_alert" class="text-white text-center font-bold p-4 rounded mb-4" :class="reg_alert_variant">
-    {{ reg_alert_msg }}
+  <div
+    v-if="regShowAlert"
+    class="text-white text-center font-bold p-4 rounded mb-4"
+    :class="regAlertVariant"
+  >
+    {{ regAlertMsg }}
   </div>
-  <vee-form :validation-schema="schema" :initial-values="userData" @submit="register">
+  <vee-form
+    :validation-schema="schema"
+    :initial-values="userData"
+    @submit="register"
+  >
     <!-- Name -->
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
@@ -29,7 +37,11 @@
     <!-- Age -->
     <div class="mb-3">
       <label class="inline-block mb-2">Age</label>
-      <vee-field name="age" type="number" class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" />
+      <vee-field
+        name="age"
+        type="number"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+      />
       <ErrorMessage class="text-red-600" name="age" />
     </div>
     <!-- Password -->
@@ -61,7 +73,11 @@
     <!-- Country -->
     <div class="mb-3">
       <label class="inline-block mb-2">Country</label>
-      <vee-field as="select" name="country" class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded">
+      <vee-field
+        as="select"
+        name="country"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+      >
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
         <option value="Germany">Germany</option>
@@ -71,11 +87,22 @@
     </div>
     <!-- TOS -->
     <div class="mb-3 pl-6">
-      <vee-field name="tos" value="1" type="checkbox" class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
+      <vee-field
+        name="tos"
+        value="1"
+        type="checkbox"
+        class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+      />
       <label class="inline-block">Accept terms of service</label>
       <ErrorMessage class="text-red-600 block" name="tos" />
     </div>
-    <button type="submit" class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700" :disabled="reg_in_submission">Submit</button>
+    <button
+      type="submit"
+      class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+      :disabled="regInSubmission"
+    >
+      Submit
+    </button>
   </vee-form>
 </template>
 
@@ -89,21 +116,21 @@ export default {
     return {
       tab: 'login',
       schema: {
-        name: 'required|min:3|max:100|alpha_spaces',
+        name: 'required|min:3|max:100|alphaSpaces',
         email: 'required|min:3|max:100|email',
-        age: 'required|min_value:18|max_value:100',
+        age: 'required|minValue:18|maxValue:100',
         password: 'required|min:9|max:100|excluded:password',
-        confirm_password: 'passwords_mismatch:@password',
-        country: 'required|country_excluded:Antarctica',
+        confirm_password: 'passwordsMismatch:@password',
+        country: 'required|countryExcluded:Antarctica',
         tos: 'tos'
       },
       userData: {
         country: 'USA'
       },
-      reg_in_submission: false,
-      reg_show_alert: false,
-      reg_alert_variant: 'bg-blue-500',
-      reg_alert_msg: 'Please wait! Your account is being created.'
+      regInSubmission: false,
+      regShowAlert: false,
+      regAlertVariant: 'bg-blue-500',
+      regAlertMsg: 'Please wait! Your account is being created.'
     };
   },
   methods: {
@@ -111,22 +138,23 @@ export default {
       createUser: 'register'
     }),
     async register(values) {
-      this.reg_show_alert = true;
-      this.reg_in_submission = true;
-      this.reg_alert_variant = 'bg-blue-500';
-      this.reg_alert_msg = 'Please wait! Your account is being created.';
+      this.regShowAlert = true;
+      this.regInSubmission = true;
+      this.regAlertVariant = 'bg-blue-500';
+      this.regAlertMsg = 'Please wait! Your account is being created.';
 
       try {
         await this.createUser(values);
       } catch (error) {
-        this.reg_in_submission = false;
-        this.reg_alert_variant = 'bg-red-500';
-        this.reg_alert_msg = 'An unexpected error occurred. Please try again later.';
+        this.regInSubmission = false;
+        this.regAlertVariant = 'bg-red-500';
+        this.regAlertMsg =
+          'An unexpected error occurred. Please try again later.';
         return;
       }
 
-      this.reg_alert_variant = 'bg-green-500';
-      this.reg_alert_msg = 'Success! Your account has been created.';
+      this.regAlertVariant = 'bg-green-500';
+      this.regAlertMsg = 'Success! Your account has been created.';
       window.location.reload();
     }
   }
