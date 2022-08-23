@@ -1,10 +1,9 @@
-<!-- eslint-disable vue/attribute-hyphenation -->
 <template>
   <!-- Main Content -->
   <section class="container mx-auto mt-6">
     <div class="md:grid md:grid-cols-3 md:gap-4">
       <div class="col-span-1">
-        <app-upload ref="upload" />
+        <app-upload ref="upload" :on-add-song="onAddSong" />
       </div>
       <div class="col-span-2">
         <div
@@ -12,9 +11,7 @@
         >
           <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
             <span class="card-title">My Songs</span>
-            <i
-              class="fa fa-compact-disc float-right text-green-400 text-2xl"
-            ></i>
+            <i class="fa fa-compact-disc float-right text-green-400 text-2xl" />
           </div>
           <div class="p-6">
             <!-- Composition Items -->
@@ -22,8 +19,10 @@
               v-for="(song, index) in songs"
               :key="song.docID"
               :song="song"
-              :onUpdateSong="onUpdateSong"
+              :on-update-song="onUpdateSong"
               :index="index"
+              :on-remove-song="onRemoveSong"
+              :on-update-unsaved-flag="onUpdateUnsavedFlag"
             />
           </div>
         </div>
@@ -45,12 +44,20 @@ export default {
     CompositionItem
   },
   beforeRouteLeave(to, from, next) {
-    this.$refs.upload.onCancelUpload();
-    next();
+    if (!this.unsavedFlag) {
+      // this.$refs.upload.onCancelUpload();
+      next();
+    } else {
+      const leave = confirm(
+        'You have unsaved changes. Are you sure you want to leave?'
+      );
+      next(leave);
+    }
   },
   data() {
     return {
-      songs: []
+      songs: [],
+      unsavedFlag: false
     };
   },
   async created() {
@@ -58,19 +65,26 @@ export default {
       .where('uid', '==', auth.currentUser.uid)
       .get();
 
-    snapshot.forEach(document => {
+    snapshot.forEach(this.onAddSong);
+  },
+  methods: {
+    onUpdateSong(i, { modifiedName, genre }) {
+      this.songs[i].modifiedName = modifiedName;
+      this.songs[i].genre = genre;
+    },
+    onRemoveSong(index) {
+      this.songs.splice(index, 1);
+    },
+    onAddSong(document) {
       const song = {
         ...document.data(),
         docID: document.id
       };
 
       this.songs.push(song);
-    });
-  },
-  methods: {
-    onUpdateSong(i, { modifiedName, genre }) {
-      this.songs[i].modifiedName = modifiedName;
-      this.songs[i].genre = genre;
+    },
+    onUpdateUnsavedFlag(value) {
+      this.unsavedFlag = value;
     }
   }
   // beforeRouteEnter(to, from, next) {
