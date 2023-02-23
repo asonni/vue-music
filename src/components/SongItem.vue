@@ -16,10 +16,20 @@
     </div>
 
     <div class="text-gray-600 text-lg">
-      <span class="comments">
-        <i class="fa fa-comments text-gray-600"></i>
-        {{ song.commentCount }}
-      </span>
+      <router-link
+        v-slot="{ navigate }"
+        custom
+        :to="{
+          name: 'song',
+          params: { songId: song.docID },
+          hash: '#comments'
+        }"
+      >
+        <span class="comments" @click="navigate">
+          <i class="fa fa-comments text-gray-600"></i>
+          {{ song.commentCount }}
+        </span>
+      </router-link>
     </div>
   </li>
 </template>
