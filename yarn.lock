@@ -1622,9 +1622,9 @@ editorconfig@^0.15.3:
     sigmund "^1.0.1"
 
 electron-to-chromium@^1.4.284:
-  version "1.4.306"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.306.tgz#3f16bc14e150ad79803145fffeaf0bee15d3fca7"
-  integrity sha512-1zGmLFfpcs2v7ELt/1HgLZF6Gm2CCHaAdNKxd9Ge4INSU/HDYWjs7fcWU6eVMmhkpwmh+52ZrGCUU+Ji9OJihA==
+  version "1.4.308"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.308.tgz#39e7047579867c59973eec5168d8bf440780cb7a"
+  integrity sha512-qyTx2aDFjEni4UnRWEME9ubd2Xc9c0zerTUl/ZinvD4QPsF0S7kJTV/Es/lPCTkNX6smyYar+z/n8Cl6pFr8yQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
