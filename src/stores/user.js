@@ -7,7 +7,10 @@ export default defineStore('user', {
   }),
   actions: {
     async register(values) {
-      const userCred = await auth.createUserWithEmailAndPassword(values.email, values.password);
+      const userCred = await auth.createUserWithEmailAndPassword(
+        values.email,
+        values.password
+      );
 
       await usersCollection.doc(userCred.user.uid).set({
         name: values.name,
@@ -27,7 +30,7 @@ export default defineStore('user', {
 
       this.userLoggedIn = true;
     },
-    async signOut() {
+    async onSignOut() {
       await auth.signOut();
 
       this.userLoggedIn = false;

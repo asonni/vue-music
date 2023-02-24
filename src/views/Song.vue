@@ -19,6 +19,7 @@
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modifiedName }}</div>
           <div>{{ song.genre }}</div>
+          <div class="song-price">{{ $n(100, 'currency', 'ja') }}</div>
         </div>
       </div>
     </section>
@@ -29,8 +30,14 @@
       >
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
-          <span class="card-title">Comments ({{ song.commentCount }})</span>
-          <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
+          <span class="card-title">
+            {{
+              $tc('song.comment-count', song.commentCount, {
+                count: song.commentCount
+              })
+            }}
+          </span>
+          <i class="fa fa-comments float-right text-green-400 text-2xl" />
         </div>
         <div class="p-6">
           <div
@@ -50,7 +57,7 @@
               name="comment"
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
               placeholder="Your comment here..."
-            ></vee-field>
+            />
             <ErrorMessage class="text-red-600" name="comment" />
             <button
               type="submit"
@@ -83,7 +90,6 @@
           <div class="font-bold">{{ comment.name }}</div>
           <time>{{ comment.datePosted }}</time>
         </div>
-
         <p>
           {{ comment.content }}
         </p>
