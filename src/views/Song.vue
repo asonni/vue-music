@@ -106,6 +106,23 @@ import { auth, songsCollection, commentsCollection } from '@/includes/firebase';
 
 export default {
   name: 'Song',
+  async beforeRouteEnter(to, from, next) {
+    const docSnapshot = await songsCollection.doc(to.params.songId).get();
+
+    next(vm => {
+      if (!docSnapshot.exists) {
+        vm.$router.push({ name: 'home' });
+        return;
+      }
+
+      const { sort } = vm.$route.query;
+
+      vm.sort = sort === 'latest' || sort === 'oldest' ? sort : 'latest';
+
+      vm.song = docSnapshot.data();
+      vm.onGetComments();
+    });
+  },
   props: {
     songId: {
       type: String,
@@ -156,21 +173,6 @@ export default {
         }
       });
     }
-  },
-  async created() {
-    const docSnapshot = await songsCollection.doc(this.songId).get();
-
-    if (!docSnapshot.exists) {
-      this.$router.push({ name: 'home' });
-      return;
-    }
-
-    const { sort } = this.$route.query;
-
-    this.sort = sort === 'latest' || sort === 'oldest' ? sort : 'latest';
-
-    this.song = docSnapshot.data();
-    this.onGetComments();
   },
   methods: {
     ...mapActions(usePlayerStore, ['onNewSong', 'onToggleAudio']),
