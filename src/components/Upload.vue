@@ -74,6 +74,18 @@ export default {
           return;
         }
 
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            currentProgress: 100,
+            name: file.name,
+            variant: 'bg-red-400',
+            icon: 'fas fa-times',
+            textClass: 'text-red-400'
+          });
+          return;
+        }
+
         const storageRef = storage.ref(); // vue3-music.appspot.com
         const songsRef = storageRef.child(`songs/${file.name}`); // vue3-music.appspot.com/songs/example.mp3
         const task = songsRef.put(file);

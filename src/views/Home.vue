@@ -5,8 +5,7 @@
       <div
         class="absolute inset-0 w-full h-full bg-contain introduction-bg"
         style="background-image: url(/assets/img/header.png)"
-      ></div>
-
+      />
       <div class="container mx-auto">
         <div class="text-white main-header-content">
           <h1 class="font-bold text-5xl mb-5">{{ $t('home.listen') }}</h1>
